@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predictor 4.0 AI</title>
+    <style>
+        body { background-color: #050a05; color: #00ff41; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
+        .box { border: 2px solid #00ff41; padding: 20px; border-radius: 15px; background: rgba(0, 255, 65, 0.05); box-shadow: 0 0 15px #00ff41; }
+        .btn { background: #00ff41; color: black; padding: 15px 30px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; }
+        .period { font-size: 1.2em; margin-bottom: 10px; color: #fff; }
+        .result { font-size: 2.5em; font-weight: bold; margin: 20px 0; text-shadow: 0 0 10px #00ff41; }
+        .loading { display: none; color: yellow; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1 style="font-size: 1.5em;">PREDICTOR 4.0 AI</h1>
+        <hr style="border: 0.5px solid #00ff41;">
+        <div id="period-display" class="period">Period: Loading...</div>
+        <div id="loading" class="loading">ANALYZING SERVER DATA...</div>
+        <div id="result-display" class="result">READY</div>
+        <button class="btn" onclick="getPrediction()">GET PREDICTION</button>
+    </div>
+
+    <script>
+        function updatePeriod() {
+            const now = new Date();
+            const totalMinutes = (now.getUTCHours() * 60) + now.getUTCMinutes() + 330; // IST adjustment
+            const suffix = 9671 + Math.floor(totalMinutes);
+            const dateStr = now.toISOString().slice(0,10).replace(/-/g, "");
+            document.getElementById('period-display').innerText = "Period: " + dateStr + "1000" + suffix;
+        }
+        setInterval(updatePeriod, 1000);
+
+        function getPrediction() {
+            const loader = document.getElementById('loading');
+            const res = document.getElementById('result-display');
+            loader.style.display = "block";
+            res.innerText = "---";
+            
+            setTimeout(() => {
+                loader.style.display = "none";
+                const choice = Math.random() > 0.5 ? "BIG 🔴" : "SMALL 🟢";
+                res.innerText = choice;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
